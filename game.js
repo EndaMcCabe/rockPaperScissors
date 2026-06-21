@@ -13,18 +13,20 @@ function getComputerChoice() {
   }
   return choice;
 }
-let humanScore = 0;
-let aIScore = 0;
 
-function getHumanChoice() {
-  return prompt("Pick Rock / Paper / Scissors");
-}
+// function getHumanChoice(choice) {
+//   switch(choice){
+//     case 'rock':
+//       return
+//   }
+// }
 
 function playRound(humanChoice, computerChoice) {
   switch (humanChoice.toLowerCase()) {
     case "rock":
       switch (computerChoice) {
         case "rock":
+          result.textContent = `Both picked rock`;
           return;
         case "paper":
           aIScore++;
@@ -40,6 +42,7 @@ function playRound(humanChoice, computerChoice) {
           humanScore++;
           return;
         case "paper":
+          result.textContent = `Both picked paper`;
           return;
         case "scissors":
           aIScore++;
@@ -55,24 +58,31 @@ function playRound(humanChoice, computerChoice) {
           humanScore++;
           return;
         case "scissors":
+          result.textContent = `Both picked scissors`;
           return;
       }
   }
 }
 
-function playGame() {
-  const humanChoice = getHumanChoice();
-  const computerChoice = getComputerChoice();
-  playRound(humanChoice, computerChoice);
-  for (let iter = 0; iter < 5; iter++) {}
-}
-
-playGame();
-console.log(`Score is Human: ${humanScore} vs Computer: ${aIScore}`);
-
+const computerChoice = getComputerChoice();
+let humanChoice = "";
+let score = document.getElementById("score");
+let result = document.getElementById("result");
 let buttons = document.getElementsByClassName("btn");
+let winner = document.getElementById("winner");
+let humanScore = 0;
+let aIScore = 0;
+
 for (let i = 0; i < buttons.length; i++) {
   buttons[i].addEventListener("click", function () {
-    playRound();
+    humanChoice = buttons[i].textContent.toLowerCase();
+    result.textContent = "";
+    playRound(humanChoice, computerChoice);
+    score.textContent = `Score is Human: ${humanScore} vs Computer: ${aIScore}`;
+    if (humanScore >= 5) {
+      winner.textContent = `Human wins ${humanScore} to ${aIScore}`;
+    } else if (aIScore >= 5) {
+      winner.textContent = `Computer wins ${aIScore} to ${humanScore}`;
+    }
   });
 }
