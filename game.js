@@ -1,4 +1,3 @@
-"use strict";
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * (4 - 1) + 1);
   switch (choice) {
@@ -62,12 +61,18 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-  for (let iter = 0; iter < 5; iter++) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-  }
+  const humanChoice = getHumanChoice();
+  const computerChoice = getComputerChoice();
+  playRound(humanChoice, computerChoice);
+  for (let iter = 0; iter < 5; iter++) {}
 }
 
 playGame();
 console.log(`Score is Human: ${humanScore} vs Computer: ${aIScore}`);
+
+let buttons = document.getElementsByClassName("btn");
+for (let i = 0; i < buttons.length; i++) {
+  buttons[i].addEventListener("click", function () {
+    playRound();
+  });
+}
